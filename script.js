@@ -22,7 +22,26 @@ function writePassword() {
   if (uppercase != true && lowercase != true && numbers != true && symbols != true){
     alert("You must select at least one character type!")
 }
+
+  var allCharacters = symbols + numbers + lowercase + uppercase;
+  var a = symbols + numbers + lowercase;
+  var b = symbols + numbers + uppercase;
+  var c = symbols + lowercase + uppercase;
+  var d = numbers + lowercase + uppercase;
+  var e = symbols + numbers;
+  var f = symbols + lowercase;
+  var g = symbols + uppercase;
+  var h = numbers + lowercase;
+  var j = numbers + uppercase;
+  var k = lowercase + uppercase;
+  var l = symbols;
+  var m = uppercase;
+  var n = numbers;
+  var o = lowercase;
+
   var password = generatePassword();
+
+  
 
   var passwordText = document.querySelector("#password");
 
