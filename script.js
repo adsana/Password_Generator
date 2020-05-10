@@ -1,147 +1,196 @@
-// Assignment Code
-var passwordEl = document.querySelector("#password");
-var generateBtn = document.querySelector("#generate");
-
-// Write password to the #password input
 function passwordGenerate() {
-  var passLength = prompt("Between 8 and 128 characters, how many characters would you like your password to be?")
-  var newPasswordLength = parseInt(passLength);
-    
-  if (passLength < 8 || passLength > 128){
-    alert("Length must be 8-128 characters")
-}
-  var symbols = ' !#$%&()*+-./;:<>=?@[]{}~^';
-  var numbers = '0123456789';
-  var lowercase = 'abcdefghijklmnopqrstuvwxyz';
-  var uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+  var passLength = prompt("Enter Desired Password Length. Min 8 Characters and 128 Max.");
+
+  // Verify that password length meets requirements and creates an array that is the same length as the user input.
+  if (passLength >= 8 && passLength <= 128) {
+      var newPasswordLength = parseInt(passLength);
+      //var newPasswordLength = passLength;
+  //console.log(newPasswordLength);
+  var confirmUppercase = confirm("Have Password Contain Uppercase Letters?");
+  var confirmLowercase = confirm("Have Password Contain Lowercase Letters?");
+  var confirmNumbers = confirm("Have Password Contain Numbers?");
+  var confirmSpecial = confirm("Have Password Contain Special Characters?");
 
   var newPasswordLength;
 
-  if (passLength >= 8 && passLength <= 128){
-  var uppercase = confirm("Would you like to use uppercase letters?")
-  var lowercase = confirm("Would you like to use lowercase letters?")
-  var numbers = confirm("Would you like to use numbers?")
-  var symbols = confirm("Would you like to use special characters?")
+  // variables for all values.
+  var upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  var lowerCase = 'abcdefghijklmnopqrstuvwxyz';
+  var numbers = '0123456789';
+  var symbols = '!"#$%&\'()*+,-./:;<=>?@^[\\]^_`{|}~';
+
+  // check to see which confirmations have been selected.
+
+  // 1.) if all options are selected
+  if (newPasswordLength >= 8 && newPasswordLength <= 128 && confirmUppercase && confirmLowercase && confirmNumbers && confirmSpecial) {
+      function generate(length = newPasswordLength){
+          var all = upperCase + lowerCase + numbers + symbols;
+          var password = '';
+              for (var index = 0; index < length; index++) {
+                  var character = Math.floor(Math.random() * all.length);
+                  password += all[(character, character + 1)];
+              }
+              document.getElementById("passwordOutput").innerHTML = password;
+          return password;
+      }
+      generate(newPasswordLength);
   }
-  
-  if (uppercase != true && lowercase != true && numbers != true && symbols != true){
-    alert("You must select at least one character type!")
-}
-
-  var allCharacters = symbols + numbers + lowercase + uppercase;
-  var a = symbols + numbers + lowercase;
-  var b = symbols + numbers + uppercase;
-  var c = symbols + lowercase + uppercase;
-  var d = numbers + lowercase + uppercase;
-  var e = symbols + numbers;
-  var f = symbols + lowercase;
-  var g = symbols + uppercase;
-  var h = numbers + lowercase;
-  var j = numbers + uppercase;
-  var k = lowercase + uppercase;
 
 
-  var password = generatePassword();
+  // 2.) if only uppercase, lowercase, & numbers are selected
+  else if (newPasswordLength >= 8 && newPasswordLength <= 128 && confirmUppercase && confirmLowercase && confirmNumbers) {
+      function generate(length = newPasswordLength){
+          var all = upperCase + lowerCase + numbers;
+          var password = '';
+              for (var index = 0; index < length; index++) {
+                  var character = Math.floor(Math.random() * all.length);
+                  password += all[(character, character + 1)];
+              }
+              document.getElementById("passwordOutput").innerHTML = password;
+          return password;
+      }
+      generate(newPasswordLength);
+  }
 
-  if ((symbols === true) && (numbers === true) && (lowercase === true) && (uppercase === true)) {
-    for (i = 0; i < passLength; i++) {
-        var character = Math.floor(Math.random() * allCharacters.length);
-        password += allCharacters.charAt(character, character + 1);
-    }
-}
-else if ((symbols === true) && (numbers === true) && (lowercase === true) && (uppercase=== false)) {
-    for (i = 0; i < passLength; i++) {
-        var character = Math.floor(Math.random() * a.length);
-        password += a.charAt(character, character + 1);
-    }
-}
-else if ((symbols === true) && (numbers === true) && (lowercase === false) && (uppercase === true)) {
-    for (i = 0; i < passLength; i++) {
-        var character = Math.floor(Math.random() * b.length);
-        password += b.charAt(character, character + 1);
-    }
-}
-else if ((symbols === true) && (numbers === false) && (lowercase === true) && (uppercase === true)) {
-    for (i = 0; i < passLength; i++) {
-        var character = Math.floor(Math.random() * c.length);
-        password += c.charAt(character, character + 1);
-    }
-}
-else if ((symbols === false) && (numbers === true) && (lowercase === true) && (uppercase === true)) {
-    for (i = 0; i < passLength; i++) {
-        var character = Math.floor(Math.random() * d.length);
-        password += d.charAt(character, character + 1);
-    }
-}
-else if ((symbols === true) && (numbers === true) && (lowercase === false) && (uppercase === false)) {
-    for (i = 0; i < passLength; i++) {
-        var character = Math.floor(Math.random() * e.length);
-        password += e.charAt(character, character + 1);
-    }
-}
-else if ((symbols === true) && (numbers === false) && (lowercase === true) && (uppercase === false)) {
-    for (i = 0; i < passLength; i++) {
-        var character = Math.floor(Math.random() * f.length);
-        password += f.charAt(character, character + 1);
-    }
-}
-else if ((symbols === true) && (numbers === false) && (lowercase === false) && (uppercase === true)) {
-    for (i = 0; i < passLength; i++) {
-        var character = Math.floor(Math.random() * g.length);
-        password += g.charAt(character, character + 1);
-    }
-}
-else if ((symbols === false) && (numbers === true) && (lowercase === true) && (uppercase === false)) {
-    for (i = 0; i < passLength; i++) {
-        var character = Math.floor(Math.random() * h.length);
-        password += h.charAt(character, character + 1);
-    }
-}
-else if ((symbols === false) && (numbers === true) && (lowercase === false) && (uppercase === true)) {
-    for (i = 0; i < passLength; i++) {
-        var character = Math.floor(Math.random() * j.length);
-        password += j.charAt(character, character + 1);
-    }
-}
-else if ((symbols === false) && (numbers === false) && (lowercase === true) && (uppercase === true)) {
-    for (i = 0; i < passLength; i++) {
-        var character = Math.floor(Math.random() * k.length);
-        password += k.charAt(character, character + 1);
-    }
-}
-else if ((symbols === true) && (numbers === false) && (lowercase === false) && (uppercase === false)) {
-    for (i = 0; i < passLength; i++) {
-        var character = Math.floor(Math.random() * symbols.length);
-        password += symbols.charAt(character, character + 1);
-    }
-}
-else if ((symbols === false) && (numbers === true) && (lowercase === false) && (uppercase === false)) {
-    for (i = 0; i < passLength; i++) {
-        var character = Math.floor(Math.random() * numbers.length);
-        password += numbers.charAt(character, character + 1);
-    }
-}
-else if ((symbols === false) && (numbers === false) && (lowercase === true) && (uppercase === false)) {
-    for (i = 0; i < passLength; i++) {
-        var character = Math.floor(Math.random() * lowerCase.length);
-        password += lowerCase.charAt(character, character + 1);
-    }
-}
-else if ((symbols === false) && (numbers === false) && (lowercase === false) && (uppercase === true)) {
-    for (i = 0; i < passLength; i++) {
-        var character = Math.floor(Math.random() * a.length);
-        password += a.charAt(character, character + 1);
-    }
+
+  // 3.) if only uppercase & lowercase are selected
+  else if (newPasswordLength >= 8 && newPasswordLength <= 128 && confirmUppercase && confirmLowercase) {
+      function generate(length = newPasswordLength){
+          var all = upperCase + lowerCase;
+          var password = '';
+              for (var index = 0; index < length; index++) {
+                  var character = Math.floor(Math.random() * all.length);
+                  password += all[(character, character + 1)];
+              }
+              document.getElementById("passwordOutput").innerHTML = password;
+          return password;
+      }
+      generate(newPasswordLength);
+  }
+
+
+  // 4.) if only uppercase is selected
+  else if (newPasswordLength >= 8 && newPasswordLength <= 128 && confirmUppercase) {
+      function generate(length = newPasswordLength){
+          var all = upperCase;
+          var password = '';
+              for (var index = 0; index < length; index++) {
+                  var character = Math.floor(Math.random() * all.length);
+                  password += all[(character, character + 1)];
+              }
+              document.getElementById("passwordOutput").innerHTML = password;
+          return password;
+      }
+      generate(newPasswordLength);
+  }
+
+  // 5.) if only lowercase is selected
+  else if (newPasswordLength >= 8 && newPasswordLength <= 128 && confirmLowercase) {
+      function generate(length = newPasswordLength){
+          var all = lowerCase;
+          var password = '';
+              for (var index = 0; index < length; index++) {
+                  var character = Math.floor(Math.random() * all.length);
+                  password += all[(character, character + 1)];
+              }
+              document.getElementById("passwordOutput").innerHTML = password;
+          return password;
+      }
+      generate(newPasswordLength);
+  }
+
+
+  // 6.) if only numbers are selected
+  else if (newPasswordLength >= 8 && newPasswordLength <= 128 && confirmNumbers) {
+      function generate(length = newPasswordLength){
+          var all = numbers;
+          var password = '';
+              for (var index = 0; index < length; index++) {
+                  var character = Math.floor(Math.random() * all.length);
+                  password += all[(character, character + 1)];
+              }
+              document.getElementById("passwordOutput").innerHTML = password;
+          return password;
+      }
+      generate(newPasswordLength);
+  }
+
+
+  // 7.) if only symbols are selected
+  else if (newPasswordLength >= 8 && newPasswordLength <= 128 && confirmSpecial) {
+      function generate(length = newPasswordLength){
+          var all = symbols;
+          var password = '';
+              for (var index = 0; index < length; index++) {
+                  var character = Math.floor(Math.random() * all.length);
+                  password += all[(character, character + 1)];
+              }
+              document.getElementById("passwordOutput").innerHTML = password;
+          return password;
+      }
+      generate(newPasswordLength);
+  }
+
+  // 8.) if only numbers & symbols are selected
+  else if (newPasswordLength >= 8 && newPasswordLength <= 128 && confirmNumbers && confirmSpecial) {
+      function generate(length = newPasswordLength){
+          var all = numbers + symbols;
+          var password = '';
+              for (var index = 0; index < length; index++) {
+                  var character = Math.floor(Math.random() * all.length);
+                  password += all[(character, character + 1)];
+              }
+              document.getElementById("passwordOutput").innerHTML = password;
+          return password;
+      }
+      generate(newPasswordLength);
+  }
+
+
+  // 9.) if only lowercase & numbers are selected
+  else if (newPasswordLength >= 8 && newPasswordLength <= 128 && confirmLowercase && confirmNumbers) {
+      function generate(length = newPasswordLength){
+          var all = lowerCase + numbers;
+          var password = '';
+              for (var index = 0; index < length; index++) {
+                  var character = Math.floor(Math.random() * all.length);
+                  password += all[(character, character + 1)];
+              }
+              document.getElementById("passwordOutput").innerHTML = password;
+          return password;
+      }
+      generate(newPasswordLength);
+  }
+
+
+  // 10.) if only lowercase & numbers are selected
+  else if (newPasswordLength >= 8 && newPasswordLength <= 128 && confirmLowercase && confirmSpecial) {
+      function generate(length = newPasswordLength){
+          var all = upperCase + lowerCase + numbers + symbols;
+          var password = '';
+              for (var index = 0; index < length; index++) {
+                  var character = Math.floor(Math.random() * all.length);
+                  password += all[(character, character + 1)];
+              }
+              document.getElementById("passwordOutput").innerHTML = password;
+          return password;
+      }
+      generate(newPasswordLength);
+  }
+
+  else {
+      alert("Please select at least one conditional choice from lower or uppercase letters, numbers, or special characters");
+  }
+
+  }
+  else {
+      alert("Please enter a number between 8 and 128");
+  }
+
+ 
+
 }
 
 var passwordDisplayed;
 console.log(passwordDisplayed);
-
-  
-
-}
-
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
-
-
